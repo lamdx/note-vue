@@ -1,11 +1,6 @@
 # Vue.js
 
-## 课程介绍
-
-前 5 天： 都在学习 Vue 基本的语法和概念；打包工具 Webpack , Gulp
-后 5 天： 以项目驱动教学；
-
-### 什么是 Vue.js
+## 什么是 Vue.js
 
 - Vue.js 是目前最火的一个前端框架，React 是最流行的一个前端框架（React 除了开发网站，还可以开发手机 App， Vue 语法也是可以用于进行手机 App 开发的，需要借助于 Weex）
 - Vue.js 是前端的**主流框架之一**，和 Angular.js、React.js 一起，并成为前端三大主流框架！

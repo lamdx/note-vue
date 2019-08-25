@@ -4,28 +4,27 @@ const path = require('path')
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-// 在内存中，根据指定的模板页面，生成一份内存中的首页，同时自动把打包好的bundle注入
-// 到页面底部
+// 在内存中，根据指定的模板页面，生成一份内存中的首页，同时自动把打包好的bundle注入到页面底部
 // 如果要配置插件，需要在导出的对象中，挂载一个 plugins 节点
-var htmlWebpackPlugin = require('html-webpack-plugin')
+// 导入 在内存中自动生成 index 页面的插件
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+// 创建一个插件的实例对象
+const htmlPlugin = new HtmlWebpackPlugin({
+  template: path.join(__dirname, "./src/index.html"), // 源文件
+  filename: "index.html" // 生成的内存中首页的名称
+});
 
 // 当以命令行形式运行 webpack 或 webpack-dev-server 的时候，工具会发现，我们并没有
 // 提供 要打包 的文件的 入口 和 出口文件，此时，他会检查项目根目录中的配置文件，并
 // 读取这个文件，就拿到了导出的这个 配置对象，然后根据这个对象，进行打包构建
 
 module.exports = {
-  entry: path.join(__dirname, "./src/main.js"), //入口文件
-  output: {
-    //指定输出项
-    path: path.join(__dirname, "./dist/"), //输出路径
-    filename: "bundle.js" //指定输出文件的名称
-  },
+  mode: "development", // "development" | "production"
+  // 在 webpack 4.x 中，有一个很大的特性，就是 约定大于配置  约定，默认的打包入口路径是 src -> index.js
   plugins: [
     // 所有webpack 插件的配置节点
-    new htmlWebpackPlugin({
-      template: path.join(__dirname, "./src/index.html"), //指定模板文件路径
-      filename: "index.html" //设定生成的内存页面的名称
-    }),
+    htmlPlugin,
     new VueLoaderPlugin()
   ],
   module: {

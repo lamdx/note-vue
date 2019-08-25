@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>路由-命名视图实现经典布局</title>
+  <script src="lib/vue-2.4.0.js"></script>
+  <script src="lib/vue-router-3.0.1.js"></script>
+  <style type="text/css">
+  .header {
+    background-color: orange;
+    height: 100px;
+  }
+
+  .container {
+    display: flex;
+    height: 600px;
+  }
+
+  .left {
+    flex: 2;
+    background-color: lightgreen;
+  }
+
+  .main {
+    flex: 8;
+    background-color: yellow;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <router-view></router-view>
+    <div class="container">
+      <router-view name="left"></router-view>
+      <router-view name="main"></router-view>
+    </div>
+  </div>
+  <script>
+  var header = {
+    template: '<div class="header">header区域</div>'
+  }
+  var left = {
+    template: '<div class="left">left区域</div>'
+  }
+  var main = {
+    template: '<div class="main">main区域</div>'
+  }
+  // 创建路由对象
+  var router = new VueRouter({
+    routes: [{
+      path: '/',
+      components: { // components
+        default: header,
+        left: left,
+        main: main
+      }
+    }]
+  })
+  // 创建 Vue 实例，得到 ViewModel
+  var vm = new Vue({
+    el: '#app',
+    data: {
+
+    },
+    methods: {
+
+    },
+    router
+  });
+  </script>
+</body>
+
+</html>

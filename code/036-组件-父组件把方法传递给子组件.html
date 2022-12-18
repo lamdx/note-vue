@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 父组件向子组件 传递 方法，使用的是 事件绑定机制； v-on, 当我们自定义了 一个 事件属性之后，那么，子组件就能够，通过某些方式，来调用 传递进去的 这个 方法了 -->
+    <son @func="show"></son>
+  </div>
+  <template id="tmpl">
+    <div>
+      <input type="button" value="触发父组件的方法" @click="myclick">
+    </div>
+  </template>
+  <script>
+  Vue.config.productionTip = false
+  // 创建 Vue 实例，得到 ViewModel
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      dataFromSon: null
+    },
+    methods: {
+      show(data) {
+        this.dataFromSon = data
+        console.log(data)
+      }
+    },
+    components: {
+      son: {
+        template: '#tmpl',
+        data() {
+          return {
+            sonmsg: { name: 'jack', age: 27 }
+          }
+        },
+        methods: {
+          myclick() {
+            // 当点击子组件的按钮的时候，如何 拿到 父组件传递过来的 func 方法，并调用这个方法？？？
+            //  emit 英文原意： 是触发，调用、发射的意思
+            // this.$emit('func123', 123, 456)
+            this.$emit('func', this.sonmsg)
+          }
+        }
+      }
+    }
+  });
+  </script>
+</body>
+
+</html>
